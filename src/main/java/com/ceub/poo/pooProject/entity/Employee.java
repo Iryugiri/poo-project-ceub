@@ -1,17 +1,11 @@
 package com.ceub.poo.pooProject.entity;
 
-import java.util.List;
-
-import com.ceub.poo.pooProject.ultility.JsonUtil;
-import com.fasterxml.jackson.core.JsonProcessingException;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -47,8 +41,4 @@ public class Employee {
 		this.phone = phone;
 	}
 	
-	public static String saveList(List<String> string) throws JsonProcessingException {
-		 String listJson = JsonUtil.toJson(string);
-		 return listJson;
-	    }
 }
