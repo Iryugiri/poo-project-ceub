@@ -1,18 +1,24 @@
 package com.ceub.poo.pooProject.entity;
 
+import java.util.List;
+
+import com.ceub.poo.pooProject.ultility.JsonUtil;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "employee", schema = "test")
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
 public class Employee {
 	
 	/*
@@ -35,9 +41,14 @@ public class Employee {
 	@Column(nullable = false, length = 11)
 	private String phone;
 	
-	/*
-	 * @Column List<Sickness> sickness;
-	 */
+	public Employee (String name, String email, String phone) {
+		this.name = name;
+		this.email = email;
+		this.phone = phone;
+	}
 	
-	
+	public static String saveList(List<String> string) throws JsonProcessingException {
+		 String listJson = JsonUtil.toJson(string);
+		 return listJson;
+	    }
 }
