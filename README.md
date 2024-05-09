@@ -73,7 +73,89 @@ Para instalar o projeto e necessario ter alguns requizitos, tem o JDK, o MySQL.
 - Para verificar se o JDK foi instalado corretamente, abra um terminal ou prompt de comando e digite `java -version`.
 - Para verificar se o MySQL está funcionando, tente fazer login com o novo usuário: `mysql -u novo_usuario -p`.
 
+## Configurações a fazer:
 
+Agora que seu usuario foi criado e necessario colocar no arquivo applications.properties.
+
+Com o Eclipse aberto entre em src/main/resources.
+
+- Dentro do arquivo "applications.properties"
+```
+    spring.datasource.url=jdbc:mysql://localhost:3306/MGS
+    spring.datasource.username=<COLOQUE SEU USER>
+    spring.datasource.password=<COLOQUE SUA SENHA>
+    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+```
+
+# Instalação do DBeaver
+
+## Download e Instalação
+
+### Windows
+
+1. **Download**:
+   - Acesse o site oficial do DBeaver: [DBeaver Downloads](https://dbeaver.io/download/)
+   - Escolha a versão "Community Edition" e clique em "Download" para Windows.
+2. **Instalação**:
+   - Execute o arquivo baixado (um instalador `.exe`).
+   - Siga as instruções na tela para instalar o DBeaver.
+
+### Linux
+
+1. **Download**:
+   - Escolha a versão para Linux no mesmo link acima.
+2. **Instalação**:
+   - Para distribuições baseadas em Debian, use `sudo dpkg -i <nome-do-arquivo>.deb`.
+   - Para distribuições baseadas em Red Hat, use `sudo rpm -i <nome-do-arquivo>.rpm`.
+   - Para outras distribuições, você pode usar o arquivo `.tar.gz`.
+
+### macOS
+
+1. **Download**:
+   - Escolha a versão para macOS no site de downloads.
+2. **Instalação**:
+   - Abra o arquivo `.dmg` baixado.
+   - Arraste o ícone do DBeaver para a pasta de Aplicações.
+
+## Iniciando o DBeaver
+
+- Após a instalação, você pode iniciar o DBeaver através do menu iniciar ou da linha de comando no Linux e Windows, e a partir da pasta de Aplicações no macOS.
+
+## Configuração Inicial
+
+- Quando você inicia o DBeaver pela primeira vez, será possível conectar-se a qualquer banco de dados suportado pela ferramenta, configurando a conexão com as informações específicas do banco de dados de sua escolha.
+
+## Verificação da Instalação
+
+- Verifique se o DBeaver foi instalado corretamente tentando conectar-se a um banco de dados e executando algumas consultas básicas para garantir que tudo esteja funcionando como esperado.
+
+
+## Criacao do Banco de Dados
+
+Dentro do DBeaver rode esse trecho de codigo para criar o banco de dados
+    
+    CREATE DATABASE MGS;
+
+    CREATE TABLE MGS.employee (
+    	Id int (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    	Name varchar(50) DEFAULT NULL,
+    	Phone varchar(11) DEFAULT NULL,
+    	Email varchar(50) DEFAULT NULL
+    );
+
+    CREATE TABLE MGS.sickness(
+    	Id int (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    	sick_of_employee text DEFAULT NULL,
+    	id_employee int NOT NULL,
+    	FOREIGN KEY (id_employee) references MGS.employee(Id)
+    );
+
+    INSERT INTO MGS.employee (Name,Phone,Email) values 
+    	("Caue Justin", "60214139387","caue.justin@gmail.com");
+    
+    INSERT INTO MGS.sickness (sick_of_employee, id_employee) values
+    	("Escorbuto",1),
+    	("Peste Negra",1);
 
 ## Instalação do Eclipse IDE
 
