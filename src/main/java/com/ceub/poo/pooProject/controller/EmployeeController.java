@@ -1,7 +1,5 @@
 package com.ceub.poo.pooProject.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,15 +41,16 @@ public class EmployeeController {
 	
 	@GetMapping("/find/{id}")
 	@ResponseStatus(HttpStatus.OK)
-	public Employee findById (@PathVariable Integer id) {
+	public EmployeeDto findById (@PathVariable Integer id) {
 		return serviceEmployee.findById(id);
 	}
 	
-	@GetMapping("/findAll")
-	@ResponseStatus(HttpStatus.OK)
-	public List<Employee> findAll () {
-		return serviceEmployee.findAll();
-	}
+	/*
+	 * @GetMapping("/findAll")
+	 * 
+	 * @ResponseStatus(HttpStatus.OK) public List<Employee> findAll () { return
+	 * serviceEmployee.findAll(); }
+	 */
 	
 	@DeleteMapping("/remove/{id}")
 	public void delete (@PathVariable Integer id) {
@@ -61,7 +60,7 @@ public class EmployeeController {
 	@PutMapping("/update/{id}")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void update (@PathVariable Integer id, @RequestBody Employee updatedEmployee) {
-		serviceEmployee.update(id, updatedEmployee);
+		serviceEmployee.updateEmployee(id, updatedEmployee);
 	}
 	
 	

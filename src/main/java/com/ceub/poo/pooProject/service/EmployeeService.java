@@ -29,30 +29,34 @@ public class EmployeeService {
 		return employee;
 	}
 	
-	public Employee findById (Integer id) {
-		return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-	}
-	
-	public List<Employee> findAll () {
-		List<Employee> employee = repository.findAll();
-		return employee;
+	public EmployeeDto findById (Integer id) {
+		Employee employee = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		List<String> sickList = service.findSicknessOfEmployee(id);
+		EmployeeDto employeeDto = new EmployeeDto(employee.getName(),employee.getPhone(),employee.getEmail(),sickList);
+		return employeeDto;
 	}
 	
 	public void delete (Integer id) {
-		repository.findById(id)
-		.map( employee -> {
+		service.delete(id);
+		repository.findById(id).map(employee -> {
 			repository.delete(employee);
 			return Void.TYPE;
 		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		
 	}
 	
-	public void update ( Integer id, Employee updatedEmployee) {
-		repository.findById(id)
-		.map( employee -> {
-			updatedEmployee.setId(employee.getId()) ;
-			return repository.save(updatedEmployee);
-		})
-		.orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-	}
+	public void updateEmployee ( Integer id, Employee updatedEmployee) {
+		
+		Employee employee = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		updatedEmployee.setId(employee.getId());
+		repository.save(updatedEmployee);
+		
+		}
+	
+	// Fazer sickness add
+	
+	// Fazer sickness remove by sick
+	
+	// Exemplo : (remove method) http://localhost:8080/api/employee/remove/sick/Escorbuto
 	
 }

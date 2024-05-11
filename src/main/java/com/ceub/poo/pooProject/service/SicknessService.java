@@ -1,5 +1,7 @@
 package com.ceub.poo.pooProject.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +15,24 @@ public class SicknessService {
 	 @Autowired
 	 private  SicknessRepository repositorySick;
 
-	 public void saveSickness(String list, Employee employee) {
-		 Sickness sick = new Sickness(list, employee);
+	 public void saveSickness(String issue, Employee employee) {
+		 Sickness sick = new Sickness(issue, employee);
 		 repositorySick.save(sick);
 	    }
+	 
+	 public List<String> findSicknessOfEmployee (Integer id){
+		 return repositorySick.findSicknessOfEmployee(id);
+	 }
+	
+	 public List<Sickness> findSicknessAllOfEmployee(Integer Id) {
+		return repositorySick.findSicknessAllOfEmployee(Id); 
+	 }
+	 
+	 public void delete(Integer id) { 
+		List<Sickness> sickList = findSicknessAllOfEmployee(id);
+		for (Sickness sick : sickList) {
+			repositorySick.delete(sick); 
+		}
 		
+	}
 }
