@@ -36,27 +36,25 @@ public class EmployeeService {
 		return employeeDto;
 	}
 	
-	public void delete (Integer id) {
-		service.delete(id);
-		repository.findById(id).map(employee -> {
-			repository.delete(employee);
-			return Void.TYPE;
-		}).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-		
-	}
+	 public void delete (Integer id) {
+		 service.delete(id);
+		 repository.findById(id)
+		 .map(employee -> {
+			 repository.delete(employee); 
+			 return Void.TYPE; 
+		 }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+	 }
+	 
 	
 	public void updateEmployee ( Integer id, Employee updatedEmployee) {
 		
 		Employee employee = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 		updatedEmployee.setId(employee.getId());
 		repository.save(updatedEmployee);
-		
-		}
+	}
 	
-	// Fazer sickness add
-	
-	// Fazer sickness remove by sick
-	
-	// Exemplo : (remove method) http://localhost:8080/api/employee/remove/sick/Escorbuto
+	public Employee findByPhone(String phone) { 
+		return repository.findByPhone(phone); 
+	}
 	
 }
