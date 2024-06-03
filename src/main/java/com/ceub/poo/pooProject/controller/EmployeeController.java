@@ -29,10 +29,6 @@ public class EmployeeController {
 	 * @Autowired private SicknessRepository repositorySick;
 	 */
 	
-	public EmployeeController( EmployeeService serviceEmployee) {
-		this.serviceEmployee = serviceEmployee;
-	}
-	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public void save(@RequestBody EmployeeDto employeeDto) throws JsonProcessingException {
@@ -54,7 +50,7 @@ public class EmployeeController {
 	
 	@DeleteMapping("/remove/{id}")
 	public void delete (@PathVariable Integer id) {
-		//serviceEmployee.delete(id);
+		serviceEmployee.delete(id);
 	}
 	
 	@PutMapping("/update/{id}")
