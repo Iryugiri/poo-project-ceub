@@ -10,9 +10,9 @@ import com.ceub.poo.pooProject.entity.Sickness;
 
 @Repository
 public interface SicknessRepository extends JpaRepository<Sickness, Integer>{
-	@Query(nativeQuery = true, value="SELECT sick_of_employee from MGS.sickness WHERE id_employee = ?;")
+	@Query(nativeQuery = true, value="SELECT sick_of_employee from sickness WHERE id_employee = ?;")
 	List<String> findSicknessOfEmployee(Integer id);
 	
-	@Query(nativeQuery = true, value="SELECT * from MGS.sickness WHERE id_employee = ?;")
+	@Query(nativeQuery = true, value="SELECT * from sickness WHERE id_employee = ?;")
 	List<Sickness> findSicknessAllOfEmployee(Integer Id);
 }

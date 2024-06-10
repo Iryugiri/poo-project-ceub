@@ -8,7 +8,7 @@ import com.ceub.poo.pooProject.entity.Employee;
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, Integer>{
 
-	@Query(nativeQuery = true, value="SELECT * from MGS.Employee WHERE Name = ?;")
+	@Query(nativeQuery = true, value="SELECT * from Employee WHERE Phone = ?;")
 	Employee findByPhone(String phone);
 	
 	

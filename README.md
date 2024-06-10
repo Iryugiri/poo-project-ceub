@@ -81,10 +81,10 @@ Com o Eclipse aberto entre em src/main/resources.
 
 - Dentro do arquivo "applications.properties"
 ```
-    spring.datasource.url=jdbc:mysql://localhost:3306/MGS
-    spring.datasource.username=<COLOQUE SEU USER>
-    spring.datasource.password=<COLOQUE SUA SENHA>
-    spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+    spring.datasource.url=jdbc:postgresql://localhost:5432/MGS
+    spring.datasource.username=postgres
+    spring.datasource.password=123456
+    spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 
 # Instalação do DBeaver
@@ -134,28 +134,26 @@ Com o Eclipse aberto entre em src/main/resources.
 
 Dentro do DBeaver rode esse trecho de codigo para criar o banco de dados
     
-    CREATE DATABASE MGS;
-
-    CREATE TABLE MGS.employee (
-    	Id int (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    	Name varchar(50) DEFAULT NULL,
-    	Phone varchar(11) DEFAULT NULL,
-    	Email varchar(50) DEFAULT NULL
+    CREATE TABLE employee (
+	Id SERIAL PRIMARY KEY,
+	Name varchar(50) DEFAULT NULL,
+	Phone varchar(11) DEFAULT NULL,
+	Email varchar(50) DEFAULT NULL
     );
 
-    CREATE TABLE MGS.sickness(
-    	Id int (11) PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    	sick_of_employee text DEFAULT NULL,
-    	id_employee int NOT NULL,
-    	FOREIGN KEY (id_employee) references MGS.employee(Id)
+    CREATE TABLE sickness(
+	Id SERIAL PRIMARY KEY,
+	sick_of_employee text DEFAULT NULL,
+	id_employee int NOT NULL,
+	FOREIGN KEY (id_employee) references employee(Id)
     );
 
-    INSERT INTO MGS.employee (Name,Phone,Email) values 
-    	("Caue Justin", "60214139387","caue.justin@gmail.com");
-    
-    INSERT INTO MGS.sickness (sick_of_employee, id_employee) values
-    	("Escorbuto",1),
-    	("Peste Negra",1);
+    INSERT INTO employee (Name, Phone, Email) VALUES 
+	('Caue Just', '60214139387', 'caue.justin@gmail.com');
+
+    INSERT INTO sickness (sick_of_employee, id_employee) values
+	('Escorbuto',1),
+	('Peste Negra',1);
 
 ## Instalação do Eclipse IDE
 
