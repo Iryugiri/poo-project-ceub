@@ -15,7 +15,7 @@ Projeto A: Implementar uma API REST que permita o completo gerenciamento das inf
 
 ## Instalação
 
-Para instalar o projeto e necessario ter alguns requizitos, tem o JDK, o MySQL.
+Para instalar o projeto e necessario ter alguns requizitos, tem o JDK, o Postgresql.
 
 ## Instalação do JDK 17
 
@@ -45,33 +45,120 @@ Para instalar o projeto e necessario ter alguns requizitos, tem o JDK, o MySQL.
      ```
    - Atualize o arquivo com `source ~/.bashrc`.
 
-## Instalação do MySQL
+### Instalcao do Postgress
 
-### Windows e Linux
+## Windows
 
-1. **Download**: Acesse o site oficial do MySQL [MySQL Downloads](https://dev.mysql.com/downloads/mysql/) e escolha a versão adequada para seu sistema operacional.
-2. **Instalação**: Execute o instalador baixado e siga as instruções. Selecione a opção de instalação completa.
+### Passo 1: Baixar o Instalador
+1. Acesse a página oficial de downloads do PostgreSQL: [https://www.postgresql.org/download/windows/](https://www.postgresql.org/download/windows/).
+2. Clique em "Download the installer".
 
-### Configuração Inicial do MySQL
+### Passo 2: Executar o Instalador
+1. Execute o arquivo baixado (`postgresql-xx.x-x-windows.exe`).
+2. Siga o assistente de instalação:
+    - Escolha o diretório de instalação.
+    - Selecione os componentes que deseja instalar (padrão é recomendado).
+    - Defina uma senha para o usuário `postgres`.
+    - Configure a porta de conexão (padrão é `5432`).
+    - Escolha o local de dados (padrão é recomendado).
 
-1. **Configurar o MySQL**: Durante a instalação, será solicitado para configurar o servidor MySQL, incluindo a definição de uma senha para o usuário root.
-2. **Criar um novo usuário**:
-   - Após a instalação, acesse o MySQL através do terminal ou do MySQL Command Line Client usando `mysql -u root -p`.
-   - Digite a senha do root quando solicitado.
-   - Crie um novo usuário executando:
-     ```sql
-     CREATE USER 'novo_usuario'@'localhost' IDENTIFIED BY 'nova_senha';
-     ```
-   - Para dar privilégios ao novo usuário, execute:
-     ```sql
-     GRANT ALL PRIVILEGES ON *.* TO 'novo_usuario'@'localhost' WITH GRANT OPTION;
-     ```
-   - Aplique as mudanças com `FLUSH PRIVILEGES;`.
+### Passo 3: Finalizar a Instalação
+1. Conclua a instalação e marque a opção para iniciar o Stack Builder.
+2. No Stack Builder, você pode instalar ferramentas adicionais e extensões.
 
-## Verificação da Instalação
+### Passo 4: Verificar a Instalação
+1. Abra o PgAdmin 4 ou outro cliente de banco de dados de sua preferência.
+2. Conecte-se ao servidor PostgreSQL usando a senha definida durante a instalação.
 
-- Para verificar se o JDK foi instalado corretamente, abra um terminal ou prompt de comando e digite `java -version`.
-- Para verificar se o MySQL está funcionando, tente fazer login com o novo usuário: `mysql -u novo_usuario -p`.
+## macOS
+
+### Passo 1: Usar Homebrew (Recomendado)
+1. Instale o Homebrew se ainda não o tiver: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`.
+2. Atualize o Homebrew: `brew update`.
+
+### Passo 2: Instalar PostgreSQL
+1. Execute o comando: `brew install postgresql`.
+
+### Passo 3: Iniciar o Serviço PostgreSQL
+1. Inicie o serviço: `brew services start postgresql`.
+
+### Passo 4: Verificar a Instalação
+1. Abra um terminal e execute: `psql postgres`.
+2. Você deve estar conectado ao banco de dados PostgreSQL.
+
+### Passo 5: Configurar Inicialização Automática (Opcional)
+1. Para configurar o PostgreSQL para iniciar automaticamente com o sistema: `ln -sfv /usr/local/opt/postgresql/*.plist ~/Library/LaunchAgents`.
+2. Carregue a configuração: `launchctl load ~/Library/LaunchAgents/homebrew.mxcl.postgresql.plist`.
+
+## Linux
+
+### Passo 1: Atualizar Pacotes
+1. Abra um terminal e atualize os pacotes do sistema:
+    - Para Ubuntu/Debian:
+      ```bash
+      sudo apt update
+      sudo apt upgrade
+      ```
+    - Para Fedora/CentOS:
+      ```bash
+      sudo dnf update
+      ```
+
+### Passo 2: Instalar PostgreSQL
+1. Instale o PostgreSQL:
+    - Para Ubuntu/Debian:
+      ```bash
+      sudo apt install postgresql postgresql-contrib
+      ```
+    - Para Fedora:
+      ```bash
+      sudo dnf install postgresql-server postgresql-contrib
+      ```
+    - Para CentOS/RHEL:
+      ```bash
+      sudo yum install postgresql-server postgresql-contrib
+      ```
+
+### Passo 3: Inicializar o Banco de Dados
+1. Inicialize o banco de dados:
+    - Para Ubuntu/Debian, o serviço inicia automaticamente. Você pode verificar o status com:
+      ```bash
+      sudo systemctl status postgresql
+      ```
+    - Para Fedora/CentOS:
+      ```bash
+      sudo postgresql-setup --initdb
+      sudo systemctl start postgresql
+      sudo systemctl enable postgresql
+      ```
+
+### Passo 4: Configurar o Usuário
+1. Acesse a conta do usuário `postgres`:
+    ```bash
+    sudo -i -u postgres
+    ```
+2. Abra o prompt do PostgreSQL:
+    ```bash
+    psql
+    ```
+
+### Passo 5: Criar uma Senha para o Usuário `postgres`
+1. No prompt do PostgreSQL, execute:
+    ```sql
+    \password postgres
+    ```
+2. Digite a nova senha.
+
+### Passo 6: Verificar a Instalação
+1. No terminal, execute:
+    ```bash
+    psql -U postgres -h localhost
+    ```
+2. Digite a senha que você configurou e verifique se consegue acessar o banco de dados.
+
+---
+
+Seguindo esses passos, você terá o PostgreSQL instalado e configurado em seu sistema operacional.
 
 ## Configurações a fazer:
 
@@ -82,8 +169,8 @@ Com o Eclipse aberto entre em src/main/resources.
 - Dentro do arquivo "applications.properties"
 ```
     spring.datasource.url=jdbc:postgresql://localhost:5432/MGS
-    spring.datasource.username=postgres
-    spring.datasource.password=123456
+    spring.datasource.username=Coloque seu user
+    spring.datasource.password=coloque sua senha
     spring.datasource.driver-class-name=org.postgresql.Driver
 ```
 
@@ -132,7 +219,7 @@ Com o Eclipse aberto entre em src/main/resources.
 
 ## Criacao do Banco de Dados
 
-Dentro do DBeaver rode esse trecho de codigo para criar o banco de dados
+Dentro do DBeaver, crie uma conexao, depois crie um banco de dados MGS, abra um script,rode esse trecho de codigo para criar o banco de dados
     
     CREATE TABLE employee (
 	Id SERIAL PRIMARY KEY,
